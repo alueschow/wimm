@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row vertical-center">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 mt-2 text-center">
+            {{ form_start(form) }}
+            <div class="my-custom-class-for-errors">
+                {{ form_errors(form) }}
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h1>Search</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{ form_widget(form.term, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            {{ form_end(form) }}
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+{% endblock %}

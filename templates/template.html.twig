@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+
+    <div class="row">
+        <div class="col-md-12 m-2">
+            <a class="btn btn-success ml-1" type="button" href="{{ path('search') }}">Neue Suche</a>
+            <hr>
+            {% if nr_of_results is defined %}
+                <p><strong>Treffer: </strong>{{ nr_of_results }}</p>
+            {% endif %}
+            {% if term is defined %}
+                <div class="row">
+                    <div class="col-md-12 mb-2">
+                        Einschränken auf Collection:<br>
+                        <a class="btn btn-secondary ml-1" type="button" href="{{ path('result', {'collection': 'B1GI', 'term': term}) }}">B1GI</a>
+                        <a class="btn btn-secondary ml-1" type="button" href="{{ path('result', {'collection': 'B1GP', 'term': term}) }}">B1GP</a>
+                        <a class="btn btn-secondary ml-1" type="button" href="{{ path('result', {'collection': 'B1GT', 'term': term}) }}">B1GT</a>
+                        <a class="btn btn-secondary ml-1" type="button" href="{{ path('result', {'collection': 'B2GI', 'term': term}) }}">B2GI</a>
+                        <!--<a class="btn btn-secondary ml-1" type="button" href="{{ path('result', {'collection': 'B2GP', 'term': term}) }}">B2GP</a>
+                        <a class="btn btn-secondary ml-1" type="button" href="{{ path('result', {'collection': 'B2GT', 'term': term}) }}">B2GT</a>
+                        <a class="btn btn-secondary ml-1" type="button" href="{{ path('result', {'collection': 'B1JI', 'term': term}) }}">B1JI</a>
+                        <a class="btn btn-secondary ml-1" type="button" href="{{ path('result', {'collection': 'B1GL', 'term': term}) }}">B1GL</a>
+                        <a class="btn btn-secondary ml-1" type="button" href="{{ path('result', {'collection': 'B2GL', 'term': term}) }}">B2GL</a>
+                        <button class="btn btn-primary">CAAL</button>
+                        <button class="btn btn-primary">CADI</button>
+                        <button class="btn btn-primary">CAME</button>
+                        <button class="btn btn-primary">DEAL</button>
+                        <button class="btn btn-primary">DEMP</button>
+                        <button class="btn btn-primary">DEOC</button>
+                        <button class="btn btn-primary">EUAL</button>
+                        <button class="btn btn-primary">EUME</button>
+                        <button class="btn btn-primary">F1AL</button>
+                        <button class="btn btn-primary">F2AL</button>
+                        <button class="btn btn-primary">F1ME</button>
+                        <button class="btn btn-primary">HNME</button>
+                        <button class="btn btn-primary">HNDM</button>
+                        <button class="btn btn-primary">PPAL</button>
+                        <button class="btn btn-primary">PPDI</button>
+                        <button class="btn btn-primary">PPME</button>
+                        <button class="btn btn-primary">SBAL</button>
+                        <button class="btn btn-primary">SBME</button>
+                        <button class="btn btn-primary">SBMA</button>-->
+                        <a class="btn btn-secondary ml-1" type="button" href="{{ path('result', {'collection': 'SBMY', 'term': term}) }}">SBMY</a>
+                        <!--<button class="btn btn-primary">TDAG</button>
+                        <button class="btn btn-primary">TRAL</button>
+                        <button class="btn btn-primary">TRAP</button>
+                        <button class="btn btn-primary">TRME</button> -->
+                    </div>
+                </div>
+            {% endif %}
+            <table class="table table-dark">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Collection</th>
+                    <th scope="col">Definitions</th>
+                    <th scope="col">XPath</th>
+                    <th scope="col">Example</th>
+                </tr>
+                </thead>
+                <tbody>
+    {% for elem in set %}
+        <tr>
+                <td>{{ elem.uid }}</td>
+                <td>{{ elem.category }} - {{ elem.subCategory }}</td>
+            <td>{{ elem.collection }}</td>
+                <td>{{ elem.definitions }}</td>
+                <td><p style="font-size: 20pt;"><i>{{ elem.xpath }}{{ elem.name }}</i></p></td>
+                <td>{{ elem.examplecontent }}</td>
+        </tr>
+        <tr class="bg-info"><td></td><td></td><td></td><td></td><td><h5>Eltern: {{ elem.parent }}</h5></td><td><h5>Kinder:
+                    {% if elem.children is not empty %}
+                    {% for child in elem.children|split(",") %}
+                        <a style="color: black;" href="{{ path('result_id', {'id': child}) }}">{{ child }}</a>
+                    {% endfor %}
+                    {% endif %}
+                </h5></td></tr>
+    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+{% endblock %}
